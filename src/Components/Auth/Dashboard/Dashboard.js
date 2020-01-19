@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import SingleFeature from "../../Layout.js/SingleFeature";
 import axios from "axios";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { Redirect } from "react-router-dom";
 import PostContainer from "../../Layout.js/PostContainer";
 
 class Dashboard extends Component {
@@ -13,18 +14,32 @@ class Dashboard extends Component {
     };
   }
   componentDidMount() {
-    axios
-      .get("/api/userdata/dashboard", {
-        headers: {
-          "auth-token": localStorage.getItem("auth-token")
-        }
-      })
-      .then(posts => {
-        this.setState({ data: posts.data });
-      })
-      .catch(err => console.log(err));
+    if (this.props.auth.isAuthenticated === true) {
+      console.log(this.props.auth.isAuthenticated);
+      axios
+        .get("/api/userdata/dashboard", {
+          headers: {
+            "auth-token": localStorage.getItem("auth-token")
+          }
+        })
+        .then(posts => {
+          this.setState({ data: posts.data });
+        })
+        .catch(err => console.log(err));
+    } else {
+      return <Redirect to="/" />;
+    }
+  }
+  componentWillReceiveProps() {
+    if (this.props.auth.isAuthenticated === null) {
+      this.props.history.push("/");
+    }
   }
   render() {
+    // if (this.props.auth.isAuthenticated) {
+    //   return <Redirect to="/" />;
+    // }
+
     let allPost = this.state.data.map(post => (
       <React.Fragment key={post._id}>
         <SingleFeature post={post} />

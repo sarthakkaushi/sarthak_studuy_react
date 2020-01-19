@@ -9,9 +9,7 @@ export default function PostContainer(props) {
       <CssBaseline />
       <Container maxWidth="lg">
         <br></br>
-        <Grid container sm={12}>
-          {props.children}
-        </Grid>
+        <Grid container>{props.children}</Grid>
       </Container>
     </React.Fragment>
   );

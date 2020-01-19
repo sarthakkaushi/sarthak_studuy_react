@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import { fetchPosts } from "../../actions/postAction";
 import { Link } from "react-router-dom";
 import Notlogin from "../HelperLayout/Notlogin";
+// import Loading from "../Layout.js/Loading";
+
 // import AlertMessage from "./Edit/AlertMessage";
 class indexPage extends Component {
   constructor(props) {

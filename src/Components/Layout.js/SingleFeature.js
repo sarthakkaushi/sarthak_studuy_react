@@ -7,6 +7,7 @@ import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
+import htmlToText from "html-to-text";
 
 const useStyles = makeStyles({
   card: {
@@ -45,7 +46,7 @@ export default function SingleFeature(props) {
           </Typography>
 
           <Typography variant="body2" component="p">
-            {post.text}
+            {htmlToText.fromString(post.text)}
 
             <br />
           </Typography>

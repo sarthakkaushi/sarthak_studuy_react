@@ -118,7 +118,7 @@ function Navbar(props) {
   const displayUsername = () => {
     if (props.user) {
       return (
-        <Typography variant="h6" noWrap>
+        <Typography variant="h5" noWrap>
           <Link
             to="/dashboard"
             style={{ textDecoration: "none", color: "white" }}
@@ -206,7 +206,7 @@ function Navbar(props) {
         >
           <AccountCircle />
         </IconButton>
-        <p>{displayUsername()}</p>
+        {displayUsername()}
       </MenuItem>
     </Menu>
   );

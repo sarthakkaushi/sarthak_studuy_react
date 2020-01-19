@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Link from "@material-ui/core/Link";
+import { Link } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
@@ -20,8 +18,8 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+      <Link color="inherit" to="/" style={{ textDecoration: "none" }}>
+        Sarthak Study
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -52,11 +50,15 @@ const useStyles = makeStyles(theme => ({
 function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
   // const [msg, setMsg] = useState(null);
   const classes = useStyles();
   const handleSubmit = e => {
     e.preventDefault();
   };
+  useEffect(() => {
+    setError(props.error.status);
+  }, [props.error.status]);
 
   if (props.isAuthenticated !== undefined && props.isAuthenticated === true) {
     props.history.push("/");
@@ -65,15 +67,16 @@ function Login(props) {
     props.login({ email, password });
   };
   const cheackError = () => {
-    if (props.status === 400) {
-      return <Alert severity="error">{props.msg}</Alert>;
+    if (error === 400) {
+      return <Alert severity="error">{props.error.msg}</Alert>;
+      // return <h2>error</h2>;
     }
   };
-  console.log(props.error);
   return (
     <Container component="main" maxWidth="xs">
-      {cheackError()}
       <CssBaseline />
+      {cheackError()}
+
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
@@ -111,10 +114,7 @@ function Login(props) {
             onChange={e => setPassword(e.target.value)}
             autoComplete="current-password"
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
+
           <Button
             type="submit"
             fullWidth
@@ -126,13 +126,13 @@ function Login(props) {
             Sign In
           </Button>
           <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
+            {/* <Grid item xs>
+              <Link to="#" variant="body2">
                 Forgot password?
               </Link>
-            </Grid>
+            </Grid> */}
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link to="/api/users/register" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
