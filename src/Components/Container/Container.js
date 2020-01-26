@@ -10,6 +10,7 @@ import { Provider } from "react-redux";
 import store from "../../store";
 import { loadUser } from "../../actions/authAction";
 import Dashboard from "../Auth/Dashboard/Dashboard";
+import Countdown from "../Countdown/Countdown";
 
 export default class Container extends Component {
   componentDidMount() {
@@ -41,6 +42,11 @@ export default class Container extends Component {
               exact
               path="/dashboard"
               render={routeProps => <Dashboard {...routeProps} />}
+            />
+            <Route
+              exact
+              path="/countdown"
+              render={routeProps => <Countdown {...routeProps} />}
             />
             <Route
               exact

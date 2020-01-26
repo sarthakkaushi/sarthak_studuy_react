@@ -46,8 +46,7 @@ export default function SingleFeature(props) {
           </Typography>
 
           <Typography variant="body2" component="p">
-            {htmlToText.fromString(post.text)}
-
+            {htmlToText.fromString(post.text).slice(0, 178)}...
             <br />
           </Typography>
         </CardContent>
