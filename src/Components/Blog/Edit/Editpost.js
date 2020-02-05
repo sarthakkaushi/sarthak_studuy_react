@@ -77,10 +77,13 @@ export default class Editpost extends Component {
           this.setState({
             saved: true
           });
+          console.log("BEFORE SETTIMEOUT", this.state);
+
           setTimeout(() => {
             this.setState((state, props) => ({
               saved: false
             }));
+            console.log("AFTER SETTIMEOUT", this.state);
           }, 2000);
         }
       })
@@ -106,7 +109,6 @@ export default class Editpost extends Component {
   render() {
     document.title = "Edit Post -Sarthak Study";
     const sendData = data => {
-      console.log(data);
       this.updateData(this.state.serverId, this.state.title, data);
     };
     let title;
@@ -133,11 +135,23 @@ export default class Editpost extends Component {
         );
       }
     };
+    const alertSave = e => {
+      if (this.state.saved === true) {
+        return <AlertMessage {...this.state} savedToDb={true} />;
+      }
+    };
     return (
       <Container maxWidth="lg">
         <br></br>
+        {alertSave()}
         {showPreview()}
-        <AlertMessage {...this.state} />
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={() => sendData(this.state.data)}
+        >
+          Save
+        </Button>
         <TextField
           id="standard-full-width"
           label="Title"

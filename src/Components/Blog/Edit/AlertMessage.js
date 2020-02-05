@@ -4,10 +4,16 @@ import FlashMessage from "react-flash-message";
 
 export default function AlertMessage(props) {
   let loginCounter = 0;
+  const saveDisplay = e => {
+    if (props.savedToDb === true) {
+      return <Alert severity="success">{`Saved Successfully`}</Alert>;
+    }
+  };
   const fg = () => {
+    console.log(props);
     if (props.saved === true) {
       return (
-        <FlashMessage duration={5000}>
+        <FlashMessage duration={2000}>
           <Alert severity="success">{`Saved Successfully`}</Alert>
         </FlashMessage>
       );
@@ -44,6 +50,9 @@ export default function AlertMessage(props) {
   return (
     <div>
       <br></br>
+      {/* <Alert severity="success">{`Saved Successfully`}</Alert> */}
+      {saveDisplay()}
+
       {(fg(), authMessage())}
     </div>
   );
